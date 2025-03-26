@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Git</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        .tutorial-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .tutorial-container h2 {
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .tutorial-container h3 {
+            color: #444;
+            margin-top: 20px;
+        }
+
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-fullscreen:hover {
+            color: #bbb;
+        }
+
+        .tutorial-container p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+
+        .gallery-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .image-box {
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .image-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            display: block;
+            cursor: pointer; /* Adaugă cursor pointer pentru a indica că imaginea este clicabilă */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tutorial</h1>
+    
+    <div class="tutorial-container">
+        <h2>Tutorial: Cum să clonezi, să gestionezi și să colaborezi cu Git</h2>
+        <p>În acest tutorial, vei învăța cum să clonezi un repository Git de pe GitHub, să faci modificări, să creezi branch-uri, să faci pull request-uri și să colaborezi. Vom folosi un exemplu real: clonarea repository-ului "evaluarennr2".</p>
+        
+        <h3>Pasul 1: Deschide terminalul</h3>
+        <p>Navighează în folderul dorit folosind comanda <code>cd</code>. De exemplu, dacă vrei să clonezi pe Desktop:</p>
+        <div class="code-block">cd Desktop</div>
+
+        <h3>Pasul 2: Clonează repository-ul</h3>
+        <p>Folosește comanda <code>git clone</code> urmată de URL-ul repository-ului. În exemplul nostru:</p>
+        <div class="code-block">git clone https://github.com/AkoForU/evaluarennr2.git</div>
+
+        <h3>Pasul 3: Verifică rezultatul clonării</h3>
+        <p>După ce rulezi comanda, vei vedea un output similar cu cel de mai jos, care indică progresul clonării:</p>
+        <div class="code-block">
+Cloning into 'evaluarennr2'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (3/3), done.
+        </div>
+
+        <h3>Pasul 4: Navighează în folderul clonat</h3>
+        <p>Intră în folderul repository-ului clonat folosind comanda <code>cd</code>:</p>
+        <div class="code-block">cd evaluarennr2</div>
+
+        <h3>Pasul 5: Verifică starea repository-ului</h3>
+        <p>Folosește comanda <code>git status</code> pentru a verifica starea curentă a repository-ului:</p>
+        <div class="code-block">git status</div>
+        <p>În exemplul nostru, output-ul arată că există un fișier neurmărit (<code>settings.xml</code>):</p>
+        <div class="code-block">
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        settings.xml
+
+nothing added to commit but untracked files present (use "git add" to track)
+        </div>
+
+        <h3>Pasul 6: Adaugă fișierul pentru commit</h3>
+        <p>Folosește comanda <code>git add</code> pentru a adăuga fișierul <code>settings.xml</code> în staging area:</p>
+        <div class="code-block">git add .</div>
+        <p>Notă: <code>git add .</code> adaugă toate fișierele modificate sau neurmărite. Dacă vrei să adaugi doar un fișier specific, folosește <code>git add settings.xml</code>.</p>
+
+        <h3>Pasul 7: Creează un commit</h3>
+        <p>Folosește comanda <code>git commit</code> pentru a salva modificările cu un mesaj descriptiv:</p>
+        <div class="code-block">git commit -m "Commit file settings.xml"</div>
+        <p>Output-ul va arăta astfel:</p>
+        <div class="code-block">
+[main 5f7e5c9] Commit file settings.xml
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 settings.xml
+        </div>
+
+        <h3>Pasul 8: Verifică starea după commit</h3>
+        <p>Folosește din nou <code>git status</code> pentru a verifica starea repository-ului:</p>
+        <div class="code-block">git status</div>
+        <p>Output-ul va arăta că ai un commit care nu a fost încă trimis pe GitHub:</p>
+        <div class="code-block">
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+        </div>
+
+        <h3>Pasul 9: Verifică starea după modificări</h3>
+        <p>După ce faci modificări (de exemplu, redenumești <code>settings.xml</code> în <code>configuration.xml</code> și adaugi un fișier nou <code>configuration.xml</code>), rulează din nou <code>git status</code>:</p>
+        <div class="code-block">git status</div>
+        <p>Output-ul va arăta modificările și fișierele noi:</p>
+        <div class="code-block">
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+
+        deleted:    settings.xml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        configuration.xml
+
+no changes added to commit (use "git add" and/or "git commit -a")
+        </div>
+
+        <h3>Pasul 10: Adaugă modificările pentru commit</h3>
+        <p>Folosește <code>git add .</code> pentru a adăuga toate modificările (inclusiv fișierul redenumit și cel nou):</p>
+        <div class="code-block">git add .</div>
+
+        <h3>Pasul 11: Creează un nou commit</h3>
+        <p>Folosește <code>git commit</code> pentru a salva modificările:</p>
+        <div class="code-block">git commit -m "Commit file configuration.xml"</div>
+        <p>Output-ul va arăta astfel:</p>
+        <div class="code-block">
+[main 08f77f7e] Commit file configuration.xml
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename settings.xml => configuration.xml (100%)
+        </div>
+
+        <h3>Pasul 12: Trimite modificările pe GitHub</h3>
+        <p>Folosește <code>git push</code> pentru a trimite commit-urile pe GitHub:</p>
+        <div class="code-block">git push</div>
+        <p>Output-ul va arăta progresul:</p>
+        <div class="code-block">
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 535 bytes | 535.00 KiB/s, done.
+Total 5 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/AkoForU/evaluarennr2.git
+   e66c0c4..08f77f7e  main -> main
+        </div>
+
+        <h3>Pasul 13: Creează un fișier nou</h3>
+        <p>Creează un fișier nou numit <code>page1.html</code> folosind comanda <code>touch</code>:</p>
+        <div class="code-block">touch page1.html</div>
+
+        <h3>Pasul 14: Adaugă și comite fișierul nou</h3>
+        <p>Adaugă fișierul <code>page1.html</code> în staging area și comite-l:</p>
+        <div class="code-block">git add .</div>
+        <div class="code-block">git commit -m "Commit page1.html"</div>
+        <p>Output-ul va arăta astfel:</p>
+        <div class="code-block">
+[main fbdd22a] Commit page1.html
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 page1.html
+        </div>
+
+        <h3>Pasul 15: Trimite fișierul pe GitHub</h3>
+        <p>Folosește <code>git push</code> pentru a trimite noul commit pe GitHub:</p>
+        <div class="code-block">git push</div>
+        <p>Output-ul va arăta progresul:</p>
+        <div class="code-block">
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 287 bytes | 287.00 KiB/s, done.
+Total 2 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/AkoForU/evaluarennr2.git
+   08f77f7e..fbdd22a  main -> main
+        </div>
+
+        <h3>Pasul 16: Sincronizează cu repository-ul remote</h3>
+        <p>Folosește <code>git pull</code> pentru a te asigura că ești la zi cu repository-ul remote:</p>
+        <div class="code-block">git pull</div>
+        <p>Dacă ești deja la zi, output-ul va arăta:</p>
+        <div class="code-block">
+Already up to date.
+        </div>
+
+        <h3>Pasul 17: Revino la un commit anterior</h3>
+        <p>Folosește <code>git reset --hard HEAD~1</code> pentru a reveni la commit-ul anterior:</p>
+        <div class="code-block">git reset --hard HEAD~1</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+HEAD is now at 08f77f7e Commit file configuration.xml
+        </div>
+
+        <h3>Pasul 18: Trimite modificările forțat</h3>
+        <p>După resetare, folosește <code>git push --force</code> pentru a actualiza repository-ul remote:</p>
+        <div class="code-block">git push --force</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/AkoForU/evaluarennr2.git
+ + fbdd22a...08f77f7e main -> main (forced update)
+        </div>
+
+        <h3>Pasul 19: Creează un branch nou</h3>
+        <p>Creează un branch nou numit <code>stage</code> și comută pe el:</p>
+        <div class="code-block">git checkout -b stage</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Switched to a new branch 'stage'
+        </div>
+
+        <h3>Pasul 20: Creează și comite un fișier nou pe branch-ul stage</h3>
+        <p>Creează un fișier nou <code>hosts.xml</code>, adaugă-l și comite-l:</p>
+        <div class="code-block">touch hosts.xml</div>
+        <div class="code-block">git add .</div>
+        <div class="code-block">git commit -m "Commit file hosts.xml"</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+[stage e8baed2] Commit file hosts.xml
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 hosts.xml
+        </div>
+
+        <h3>Pasul 21: Trimite branch-ul stage pe GitHub</h3>
+        <p>Folosește <code>git push origin stage</code> pentru a trimite branch-ul pe GitHub:</p>
+        <div class="code-block">git push origin stage</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 288 bytes | 288.00 KiB/s, done.
+Total 2 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: 
+remote: Create a pull request for 'stage' on GitHub by visiting:
+remote:      https://github.com/AkoForU/evaluarennr2/pull/new/stage
+remote: 
+To https://github.com/AkoForU/evaluarennr2.git
+ * [new branch]      stage -> stage
+        </div>
+
+        <h3>Pasul 22: Comută pe branch-ul main și sincronizează</h3>
+        <p>Comută pe branch-ul <code>main</code> și sincronizează cu remote:</p>
+        <div class="code-block">git checkout main</div>
+        <div class="code-block">git pull origin main</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+From https://github.com/AkoForU/evaluarennr2
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+        </div>
+
+        <h3>Pasul 23: Mergi modificările din branch-ul stage</h3>
+        <p>Mergi modificările din branch-ul <code>stage</code> în <code>main</code>:</p>
+        <div class="code-block">git merge stage</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Updating 08f77f7e..e8baed2
+Fast-forward
+ hosts.xml | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 hosts.xml
+        </div>
+
+        <h3>Pasul 24: Trimite modificările pe branch-ul main</h3>
+        <p>Folosește <code>git push</code> pentru a trimite modificările pe <code>main</code>:</p>
+        <div class="code-block">git push</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/AkoForU/evaluarennr2.git
+   08f77f7e..e8baed2  main -> main
+        </div>
+
+        <h3>Pasul 25: Creează un branch nou dev</h3>
+        <p>Creează un branch nou numit <code>dev</code> și comută pe el:</p>
+        <div class="code-block">git checkout -b dev</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Switched to a new branch 'dev'
+        </div>
+
+        <h3>Pasul 26: Creează și comite un fișier nou pe branch-ul dev</h3>
+        <p>Creează un fișier nou <code>env.txt</code>, adaugă-l și comite-l:</p>
+        <div class="code-block">touch env.txt</div>
+        <div class="code-block">git add .</div>
+        <div class="code-block">git commit -m "Committed file env.txt"</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+[dev 2e01115] Committed file env.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 env.txt
+        </div>
+
+        <h3>Pasul 27: Comută pe branch-ul stage</h3>
+        <p>Comută pe branch-ul <code>stage</code> pentru a face modificări suplimentare:</p>
+        <div class="code-block">git checkout stage</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Switched to branch 'stage'
+        </div>
+
+        <h3>Pasul 28: Mergi modificările din branch-ul dev în stage</h3>
+        <p>Mergi modificările din branch-ul <code>dev</code> în <code>stage</code>:</p>
+        <div class="code-block">git merge dev</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Updating e8baed2..2e01115
+Fast-forward
+ env.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 env.txt
+        </div>
+
+        <h3>Pasul 29: Trimite modificările pe branch-ul stage</h3>
+        <p>Folosește <code>git push origin stage</code> pentru a trimite modificările pe branch-ul <code>stage</code> pe GitHub:</p>
+        <div class="code-block">git push origin stage</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 233 bytes | 233.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/AkoForU/evaluarennr2.git
+   e8baed2..2e01115  stage -> stage
+        </div>
+
+        <h3>Pasul 30: Creează un pull request pentru branch-ul stage</h3>
+        <p>Output-ul de la <code>git push origin stage</code> îți oferă un link pentru a crea un pull request. Accesează link-ul furnizat pentru a crea un pull request pe GitHub:</p>
+        <div class="code-block">
+remote: Create a pull request for 'stage' on GitHub by visiting:
+remote:      https://github.com/AkoForU/evaluarennr2/pull/new/stage
+        </div>
+
+        <h3>Pasul 31: Comută pe branch-ul main și sincronizează</h3>
+        <p>Comută pe branch-ul <code>main</code> și sincronizează cu remote:</p>
+        <div class="code-block">git checkout main</div>
+        <div class="code-block">git pull origin main</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+From https://github.com/AkoForU/evaluarennr2
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+        </div>
+
+        <h3>Pasul 32: Mergi modificările din branch-ul stage în main</h3>
+        <p>Mergi modificările din branch-ul <code>stage</code> în <code>main</code>:</p>
+        <div class="code-block">git merge stage</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Updating e8baed2..2e01115
+Fast-forward
+ env.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 env.txt
+        </div>
+
+        <h3>Pasul 33: Trimite modificările pe branch-ul main</h3>
+        <p>Folosește <code>git push</code> pentru a trimite modificările pe <code>main</code>:</p>
+        <div class="code-block">git push</div>
+        <p>Output-ul va arăta:</p>
+        <div class="code-block">
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/AkoForU/evaluarennr2.git
+   e8baed2..2e01115  main -> main
+        </div>
+
+        <h3>Pasul 34: Creează folderul images</h3>
+        <p>Creează un folder numit <code>images</code> pentru a stoca imaginile tutorialului:</p>
+        <div class="code-block">mkdir images</div>
+    </div>
+
+    <div class="gallery-container">
+        <h2>Imagini din proces</h2>
+        <div id="gallery" class="gallery"></div>
+        <!-- Adaugă containerul pentru full screen -->
+        <div id="fullscreenOverlay" class="fullscreen-overlay">
+            <span id="closeFullscreen" class="close-fullscreen">×</span>
+            <img id="fullscreenImage" class="fullscreen-image" src="" alt="Full screen image">
+        </div>
+    </div>
+
+    <script>
+        // Lista cu numele imaginilor din folderul "images"
+        const imageFiles = [
+            'poza1.png',
+            'poza2.png',
+            'poza3.png',
+			'poza4.png',
+            'poza5.png',
+            'poza6.png',
+			'poza7.png',
+            'poza8.png'
+            // Adaugă aici numele reale ale fișierelor tale din folderul "images"
+        ];
+
+        const gallery = document.getElementById('gallery');
+        const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+        const closeFullscreen = document.getElementById('closeFullscreen');
+
+        // Funcție pentru a încărca și afișa imaginile
+        function loadImages() {
+            imageFiles.forEach(fileName => {
+                const imgBox = document.createElement('div');
+                imgBox.className = 'image-box';
+                
+                const img = document.createElement('img');
+                img.src = `images/${fileName}`;
+                img.alt = fileName;
+                
+                // Adaugă eveniment de click pentru a deschide imaginea în full screen
+                img.addEventListener('click', () => {
+                    fullscreenImage.src = img.src;
+                    fullscreenOverlay.style.display = 'flex';
+                });
+                
+                imgBox.appendChild(img);
+                gallery.appendChild(imgBox);
+            });
+        }
+
+        // Închide imaginea full screen la click pe butonul de închidere
+        closeFullscreen.addEventListener('click', () => {
+            fullscreenOverlay.style.display = 'none';
+        });
+
+        // Închide imaginea full screen la click în afara imaginii
+        fullscreenOverlay.addEventListener('click', (e) => {
+            if (e.target === fullscreenOverlay) {
+                fullscreenOverlay.style.display = 'none';
+            }
+        });
+
+        // Încarcă imaginile când se încarcă pagina
+        window.onload = loadImages;
+    </script>
+</body>
+</html>
